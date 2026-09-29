@@ -1,0 +1,45 @@
+with Ada.Finalization;
+use Ada.Finalization;
+
+with Ada.Strings.Unbounded;
+use Ada.Strings.Unbounded;
+
+with AWS.Net.SSL;
+with AWS.Client;
+with AWS.Response;
+use AWS;
+
+
+with AWS.Client;
+with work.punks.cloud.entity.Property_Source;
+use work.punks.cloud.entity.Property_Source;
+package work.punks.cloud.Cloud_Config_Service_Client is
+
+
+
+
+  Type Client_Type is new Ada.Finalization.Limited_Controlled with private;
+procedure Setup_Client (Client : in out Client_Type; 
+Cloud_Server_Host : String; 
+Trusted_Ca_Filename: String);
+
+ procedure Initialize (Object : in out Client_Type);
+procedure Finalize (Object : in out Client_Type);
+
+function Load_Config (Object : in out Client_Type; Path:String) return  Source_Vector.Vector;
+
+private 
+
+  type Client_Type is new Ada.Finalization.Limited_Controlled with record
+  
+   Cloud_Server_Host : Unbounded_String;
+   Trusted_Ca_Filename: Unbounded_String;
+
+   TLS_Config : AWS.Net.SSL.Config;
+   Connection : AWS.Client.HTTP_Connection;
+   RS: Response.Data;
+  
+  end record;
+ 
+
+end work.punks.cloud.Cloud_Config_Service_Client;

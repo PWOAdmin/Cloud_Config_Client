@@ -1,0 +1,41 @@
+with "config/spcloud_config_client_config.gpr";
+project Spcloud_Config_Client is
+
+   for Library_Name use "Spcloud_Config_Client";
+   for Library_Version use Project'Library_Name & ".so." & Spcloud_Config_Client_Config.Crate_Version;
+
+   for Source_Dirs use ("src/**", "config/", "src/work/punks/cloud/entity/**", "src/work/punks/cloud");
+   for Object_Dir use "obj/" & Spcloud_Config_Client_Config.Build_Profile;
+   for Create_Missing_Dirs use "True";
+   for Library_Dir use "lib";
+
+
+
+   package Naming is
+      for Spec ("work.punks.cloud.entity.Property_Source") use "p-source.ads";
+      for Body ("work.punks.cloud.entity.Property_Source") use "p-source.adb";
+
+      for Spec ("work.punks.cloud.Cloud_Config_Service_Client") use "Cloud_Config_Service_Client.ads";
+      for Body ("work.punks.cloud.Cloud_Config_Service_Client") use "Cloud_Config_Service_Client.adb";
+   end Naming;
+
+   type Library_Type_Type is ("relocatable", "static", "static-pic");
+   Library_Type : Library_Type_Type :=
+     external ("SPCLOUD_CONFIG_CLIENT_LIBRARY_TYPE", external ("LIBRARY_TYPE", "static"));
+   for Library_Kind use Library_Type;
+
+   package Compiler is
+      for Default_Switches ("Ada") use Spcloud_Config_Client_Config.Ada_Compiler_Switches & "-gnatX";
+   end Compiler;
+
+   package Binder is
+      for Switches ("Ada") use ("-Es"); --  Symbolic traceback
+   end Binder;
+
+   package Install is
+      for Artifacts (".") use ("share");
+   end Install;
+
+   
+
+end Spcloud_Config_Client;
