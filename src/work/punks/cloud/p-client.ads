@@ -11,9 +11,9 @@ use AWS;
 
 
 with AWS.Client;
-with work.punks.cloud.entity.Property_Source;
-use work.punks.cloud.entity.Property_Source;
-package work.punks.cloud.Cloud_Config_Service_Client is
+with Cloud_Property_Source;
+
+package Cloud_Config_Service_Client is
 
 
 
@@ -26,7 +26,7 @@ Trusted_Ca_Filename: String);
  procedure Initialize (Object : in out Client_Type);
 procedure Finalize (Object : in out Client_Type);
 
-function Load_Config (Object : in out Client_Type; Path:String) return  Source_Vector.Vector;
+function Load_Config (Object : in out Client_Type; Path:String) return  Cloud_Property_Source.Source_Vector.Vector;
 
 private 
 
@@ -42,4 +42,4 @@ private
   end record;
  
 
-end work.punks.cloud.Cloud_Config_Service_Client;
+end Cloud_Config_Service_Client;

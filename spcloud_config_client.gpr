@@ -12,11 +12,11 @@ project Spcloud_Config_Client is
 
 
    package Naming is
-      for Spec ("work.punks.cloud.entity.Property_Source") use "p-source.ads";
-      for Body ("work.punks.cloud.entity.Property_Source") use "p-source.adb";
+      for Spec ("Cloud_Property_Source") use "p-source.ads";
+      for Body ("Cloud_Property_Source") use "p-source.adb";
 
-      for Spec ("work.punks.cloud.Cloud_Config_Service_Client") use "Cloud_Config_Service_Client.ads";
-      for Body ("work.punks.cloud.Cloud_Config_Service_Client") use "Cloud_Config_Service_Client.adb";
+      for Spec ("Cloud_Config_Service_Client") use "p-client.ads";
+      for Body ("Cloud_Config_Service_Client") use "p-client.adb";
    end Naming;
 
    type Library_Type_Type is ("relocatable", "static", "static-pic");

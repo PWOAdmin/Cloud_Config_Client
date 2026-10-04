@@ -1,5 +1,5 @@
-with work.punks.cloud.entity.Property_Source;
-package body work.punks.cloud.Cloud_Config_Service_Client is
+with cloud_Property_Source;
+package body Cloud_Config_Service_Client is
 
 procedure Setup_Client (Client : in out Client_Type; 
 Cloud_Server_Host : String; 
@@ -32,16 +32,16 @@ begin
    AWS.Net.SSL.Release (Object.TLS_Config);
 end Finalize;
 
-function Load_Config (Object : in out Client_Type; Path: String) return Source_Vector.Vector is
-PS:Source_Vector.Vector;
+function Load_Config (Object : in out Client_Type; Path: String) return Cloud_Property_Source.Source_Vector.Vector is
+PS:Cloud_Property_Source.Source_Vector.Vector;
 RS: Response.Data;
 begin
   AWS.Client.Get
      (Connection => Object.Connection,
       Result     => RS,
       URI        => Path);
-PS:=work.punks.cloud.entity.Property_Source.Read(RS.Message_Body);
+PS:=Cloud_Property_Source.Read(RS.Message_Body);
 return PS;
 end Load_Config;
 
-end work.punks.cloud.Cloud_Config_Service_Client;
+end Cloud_Config_Service_Client;
