@@ -7,18 +7,18 @@ Trusted_Ca_Filename: String)
 is
 begin
 
-Client.Cloud_Server_Host:= To_Unbounded_String (Cloud_Server_Host);
-Client.Trusted_Ca_Filename:=To_Unbounded_String (Trusted_Ca_Filename);
+Client.Cloud_Server_Host:= Path_Strings.To_Bounded_String (Cloud_Server_Host);
+Client.Trusted_Ca_Filename:=Path_Strings.To_Bounded_String (Trusted_Ca_Filename);
 
 AWS.Net.SSL.Initialize
      (Config               => Client.TLS_Config,
       
       Security_Mode        => AWS.Net.SSL.TLS_Client,
-      Trusted_CA_Filename  => To_String(Client.Trusted_Ca_Filename));
+      Trusted_CA_Filename  => Path_Strings.To_String(Client.Trusted_Ca_Filename));
 
    AWS.Client.Create
      (Connection => Client.Connection,
-      Host       => To_String(Client.Cloud_Server_Host),
+      Host       => Path_Strings.To_String(Client.Cloud_Server_Host),
       SSL_Config => Client.TLS_Config);
 end Setup_Client;
 procedure Initialize (Object : in out Client_Type) is

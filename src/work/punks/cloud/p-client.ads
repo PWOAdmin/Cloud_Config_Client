@@ -1,8 +1,8 @@
 with Ada.Finalization;
 use Ada.Finalization;
 
-with Ada.Strings.Unbounded;
-use Ada.Strings.Unbounded;
+with Ada.Strings.Bounded;
+use Ada.Strings.Bounded;
 
 with AWS.Net.SSL;
 with AWS.Client;
@@ -15,6 +15,7 @@ with Cloud_Property_Source;
 
 package Cloud_Config_Service_Client is
 
+package Path_Strings is new Ada.Strings.Bounded.Generic_Bounded_Length(Max => 256);
 
 
 
@@ -32,8 +33,8 @@ private
 
   type Client_Type is new Ada.Finalization.Limited_Controlled with record
   
-   Cloud_Server_Host : Unbounded_String;
-   Trusted_Ca_Filename: Unbounded_String;
+   Cloud_Server_Host : Path_Strings.Bounded_String;
+   Trusted_Ca_Filename: Path_Strings.Bounded_String;
 
    TLS_Config : AWS.Net.SSL.Config;
    Connection : AWS.Client.HTTP_Connection;
