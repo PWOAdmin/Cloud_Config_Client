@@ -2,6 +2,8 @@ with Ada.Unchecked_Deallocation;
 with Gnatcoll.JSON;
 use Gnatcoll;
 use type Gnatcoll.JSON.JSON_Value_Type;
+with Ada.Text_IO;
+use Ada.Text_IO;
 package body Cloud_Property_Source is
 
 
@@ -27,6 +29,9 @@ package body Cloud_Property_Source is
       Property_Sources_Array_Key: constant String:= "propertySources";
       Json_Value : constant JSON.JSON_Value := JSON.Read (Data);
    begin
+ 
+ Put_Line ("Read: " & Data);
+
       if JSON.Has_Field (Json_Value, Property_Sources_Array_Key) then
          declare
             Property_Sources : constant JSON.JSON_Array :=

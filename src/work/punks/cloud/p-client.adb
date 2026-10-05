@@ -1,4 +1,6 @@
 with cloud_Property_Source;
+with Ada.Text_IO;
+use Ada.Text_IO;  
 package body Cloud_Config_Service_Client is
 
 procedure Setup_Client (Client : in out Client_Type; 
@@ -40,6 +42,8 @@ begin
      (Connection => Object.Connection,
       Result     => RS,
       URI        => Path);
+
+put_Line ("Load_Config: " & RS.Message_Body);
 PS:=Cloud_Property_Source.Read(RS.Message_Body);
 return PS;
 end Load_Config;
